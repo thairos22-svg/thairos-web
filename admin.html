@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thairos — Panel de inventario</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root {
+    --ink: #08080A; --bone: #EEEBE4; --sand: #D8CFBC;
+    --grey: #8C8981; --rule: #24242A; --ok: #6FBF73; --bad: #D8695F;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ink); color: var(--bone);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0; padding: 24px; line-height: 1.5;
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  p.sub { color: var(--grey); font-size: 13px; margin-bottom: 24px; }
+  #login { max-width: 320px; margin-top: 60px; }
+  input, button {
+    font: inherit; padding: 10px 12px; border-radius: 6px;
+    border: 1px solid var(--rule); background: #101014; color: var(--bone);
+  }
+  input { width: 100%; margin-bottom: 10px; }
+  button {
+    cursor: pointer; background: var(--sand); color: var(--ink);
+    border: none; font-weight: 600;
+  }
+  button:hover { opacity: 0.9; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--rule); font-size: 14px; }
+  th { color: var(--grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  td input[type="number"] { width: 64px; text-align: center; }
+  td input.price { width: 90px; }
+  .sizes { display: flex; gap: 6px; flex-wrap: wrap; }
+  .sizes label { font-size: 11px; color: var(--grey); text-align: center; }
+  .row-active { opacity: 1; }
+  .row-inactive { opacity: 0.4; }
+  .save-row { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  #estado { font-size: 13px; color: var(--grey); }
+  #estado.ok { color: var(--ok); }
+  #estado.bad { color: var(--bad); }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+  <div id="login">
+    <h1>Thairos</h1>
+    <p class="sub">Panel de inventario</p>
+    <input id="clave" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <button id="entrar">Entrar</button>
+    <p id="loginError" class="sub" style="color:var(--bad)"></p>
+  </div>
+
+  <div id="panel" class="hidden">
+    <h1>Inventario</h1>
+    <p class="sub">Editá precio y stock por talle. Los cambios se ven en la web al guardar.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio</th>
+          <th>Stock por talle (S / M / L / XL)</th>
+          <th>Activo</th>
+        </tr>
+      </thead>
+      <tbody id="filas"></tbody>
+    </table>
+    <div class="save-row">
+      <button id="guardar">Guardar cambios</button>
+      <span id="estado"></span>
+    </div>
+  </div>
+
+<script>
+(function () {
+  var TALLES = ['S', 'M', 'L', 'XL'];
+  var clave = '';
+  var productos = [];
+
+  var loginBox = document.getElementById('login');
+  var panel = document.getElementById('panel');
+  var filas = document.getElementById('filas');
+  var estado = document.getElementById('estado');
+
+  document.getElementById('entrar').addEventListener('click', entrar);
+  document.getElementById('clave').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') entrar();
+  });
+
+  function entrar() {
+    clave = document.getElementById('clave').value;
+    fetch('/api/admin/products', { headers: { 'x-admin-key': clave } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('Contraseña incorrecta');
+        return r.json();
+      })
+      .then(function (data) {
+        productos = data;
+        loginBox.classList.add('hidden');
+        panel.classList.remove('hidden');
+        dibujar();
+      })
+      .catch(function () {
+        document.getElementById('loginError').textContent = 'Contraseña incorrecta';
+      });
+  }
+
+  function dibujar() {
+    filas.innerHTML = '';
+    productos.forEach(function (p, i) {
+      var tr = document.createElement('tr');
+      tr.className = p.active ? 'row-active' : 'row-inactive';
+
+      var tdName = document.createElement('td');
+      tdName.textContent = p.name;
+      tr.appendChild(tdName);
+
+      var tdPrice = document.createElement('td');
+      var inPrice = document.createElement('input');
+      inPrice.type = 'number';
+      inPrice.className = 'price';
+      inPrice.value = p.price;
+      inPrice.dataset.idx = i;
+      inPrice.dataset.field = 'price';
+      tdPrice.appendChild(inPrice);
+      tr.appendChild(tdPrice);
+
+      var tdSizes = document.createElement('td');
+      var sizesDiv = document.createElement('div');
+      sizesDiv.className = 'sizes';
+      TALLES.forEach(function (talle) {
+        var wrap = document.createElement('div');
+        var lab = document.createElement('label');
+        lab.textContent = talle;
+        var inStock = document.createElement('input');
+        inStock.type = 'number';
+        inStock.min = '0';
+        inStock.value = (p.sizes && p.sizes[talle] != null) ? p.sizes[talle] : 0;
+        inStock.dataset.idx = i;
+        inStock.dataset.talle = talle;
+        wrap.appendChild(lab);
+        wrap.appendChild(document.createElement('br'));
+        wrap.appendChild(inStock);
+        sizesDiv.appendChild(wrap);
+      });
+      tdSizes.appendChild(sizesDiv);
+      tr.appendChild(tdSizes);
+
+      var tdActive = document.createElement('td');
+      var chkActive = document.createElement('input');
+      chkActive.type = 'checkbox';
+      chkActive.checked = !!p.active;
+      chkActive.dataset.idx = i;
+      chkActive.dataset.field = 'active';
+      tdActive.appendChild(chkActive);
+      tr.appendChild(tdActive);
+
+      filas.appendChild(tr);
+    });
+  }
+
+  document.getElementById('guardar').addEventListener('click', function () {
+    var filasDom = filas.querySelectorAll('tr');
+    var cambios = [];
+
+    filasDom.forEach(function (tr, i) {
+      var p = productos[i];
+      var price = Number(tr.querySelector('input.price').value) || p.price;
+      var active = tr.querySelector('input[type="checkbox"]').checked;
+      var sizes = {};
+      tr.querySelectorAll('input[data-talle]').forEach(function (inp) {
+        sizes[inp.dataset.talle] = Number(inp.value) || 0;
+      });
+      cambios.push({ name: p.name, price: price, active: active, sizes: sizes });
+    });
+
+    estado.textContent = 'Guardando...';
+    estado.className = '';
+
+    Promise.all(cambios.map(function (c) {
+      return fetch('/api/admin/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': clave },
+        body: JSON.stringify(c),
+      });
+    }))
+      .then(function (respuestas) {
+        var fallo = respuestas.some(function (r) { return !r.ok; });
+        estado.textContent = fallo ? 'Hubo un error guardando algo.' : 'Guardado ✓';
+        estado.className = fallo ? 'bad' : 'ok';
+      })
+      .catch(function () {
+        estado.textContent = 'Error de conexión.';
+        estado.className = 'bad';
+      });
+  });
+})();
+</script>
+
+</body>
+</html>

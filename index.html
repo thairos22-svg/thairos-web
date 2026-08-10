@@ -1,0 +1,1703 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THAIROS — We have something to say</title>
+<meta name="description" content="Streetwear desde Montevideo. Remeras y hoodies de produccion corta, estampados en semitono. Pedidos por WhatsApp.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="64x64" href="img/icono.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/icono-180.png">
+<meta name="theme-color" content="#08080A">
+<link rel="canonical" href="https://thairos.uy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Thairos">
+<meta property="og:title" content="THAIROS — We have something to say">
+<meta property="og:description" content="Streetwear desde Montevideo. Remeras y hoodies de produccion corta, estampados en semitono. Pedidos por WhatsApp.">
+<meta property="og:image" content="https://thairos.uy/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://thairos.uy/">
+<meta property="og:locale" content="es_UY">
+<meta name="twitter:card" content="summary_large_image">
+<style>*{margin:0;padding:0;box-sizing:border-box}</style>
+</head>
+<body><style>
+  /* La marca vive en negro: una sola dirección, sin tema claro. */
+  :root {
+    --ink: #08080A;
+    --ink-2: #101014;
+    --bone: #EEEBE4;
+    --sand: #D8CFBC;
+    --grey: #8C8981;
+    --grey-2: #4C4A45;
+    --rule: #24242A;
+
+    --f-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --f-serif: Georgia, "Times New Roman", serif;
+    --f-mono: Consolas, "SF Mono", Menlo, monospace;
+
+    --pad: clamp(20px, 5vw, 60px);
+    --max: 1180px;
+
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--f-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    /* nada puede empujar la página a lo ancho: en el celular se corría y cortaba el texto.
+       'clip' y no 'hidden' porque hidden rompe el menú fijo de arriba. */
+    overflow-x: clip;
+  }
+  html { overflow-x: clip; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  .sr {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+
+  .label {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible {
+    outline: 1px solid var(--bone);
+    outline-offset: 4px;
+  }
+
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  em { font-family: var(--f-serif); font-style: italic; color: var(--sand); }
+
+  /* nav */
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(8, 8, 10, 0.72);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .nav ul { display: flex; gap: clamp(12px, 3vw, 34px); list-style: none; }
+  .nav ul a { color: var(--grey); transition: color 0.15s ease; }
+  .nav ul a:hover { color: var(--bone); }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--bone);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+  }
+  /* el isotipo no se estira: mantiene su proporción */
+  /* apenas por debajo del blanco pleno: se integra a la foto en vez de saltarle encima */
+  .brand img {
+    width: auto;
+    height: 46px;
+    object-fit: contain;
+    flex: none;
+    opacity: 0.86;
+    transition: opacity 0.2s ease;
+  }
+  .nav .brand:hover img { opacity: 1; }
+
+  /* boton de menu: solo aparece en celular */
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--bone);
+    margin: 0 auto;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  @media (max-width: 640px) {
+    .burger { display: flex; }
+    .nav ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 4px var(--pad) 16px;
+      background: rgba(8, 8, 10, 0.97);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav ul.open { display: flex; }
+    .nav ul a {
+      display: block;
+      padding: 15px 0;
+      font-size: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav ul li:last-child a { border-bottom: 0; }
+  }
+
+  /* hero a sangre */
+
+  .hero {
+    position: relative;
+    height: min(92svh, 900px);
+    min-height: 520px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero img {
+    position: absolute;
+    inset: 0;
+    /* deja ver la cara y el jersey entero; el título apoya sobre la escalera */
+    object-position: 50% 42%;
+    animation: slowzoom 16s ease-out forwards;
+  }
+  @keyframes slowzoom { from { transform: scale(1.06); } to { transform: scale(1); } }
+  .veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--ink) 1%, rgba(8, 8, 10, 0.82) 22%, rgba(8, 8, 10, 0.1) 52%, rgba(8, 8, 10, 0.42) 100%);
+  }
+  .hero-copy { position: relative; width: 100%; padding-bottom: clamp(34px, 6vw, 66px); }
+  .hero-copy h1 {
+    font-size: clamp(42px, 9.5vw, 116px);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+    text-transform: uppercase;
+  }
+  .hero-copy p {
+    font-size: clamp(17px, 2.2vw, 26px);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin: 16px 0 14px;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+
+  /* cinta */
+
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 15px 0;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: slide 42s linear infinite;
+  }
+  .ticker-track span {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    padding: 0 22px;
+    white-space: nowrap;
+  }
+  .ticker-track span::after { content: "✦"; margin-left: 22px; color: var(--grey-2); }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* secciones */
+
+  section { padding: clamp(48px, 7vw, 78px) 0; border-top: 1px solid var(--rule); }
+
+  .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px 30px;
+    margin-bottom: clamp(30px, 4vw, 48px);
+  }
+  .head h2 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 46px;
+    height: 1px;
+    background: var(--grey-2);
+    flex: none;
+  }
+
+  /* manifiesto */
+
+  .manifesto h2 {
+    font-size: clamp(30px, 6.4vw, 74px);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+    text-transform: uppercase;
+    margin-bottom: clamp(28px, 4vw, 46px);
+    text-wrap: balance;
+  }
+  .manifesto h2 em { text-transform: none; letter-spacing: -0.02em; }
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(22px, 4vw, 56px);
+  }
+  .columns p {
+    font-family: var(--f-serif);
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.72;
+    color: var(--grey);
+    max-width: 46ch;
+  }
+  .columns p + p { margin-top: 18px; }
+
+  /* pilares */
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: clamp(24px, 3vw, 40px);
+  }
+  .pillar .n {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--grey-2);
+  }
+  .pillar h3 {
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    margin: 8px 0 10px;
+  }
+  .pillar p { color: var(--grey); font-size: 15px; }
+
+  /* tienda */
+
+  .lead {
+    font-family: var(--f-serif);
+    font-size: clamp(16px, 1.6vw, 20px);
+    line-height: 1.6;
+    color: var(--grey);
+    max-width: 44ch;
+    margin-bottom: clamp(30px, 4vw, 44px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: clamp(16px, 2.4vw, 30px);
+  }
+  .card { display: flex; flex-direction: column; align-items: flex-start; }
+  .card .pic {
+    aspect-ratio: 2 / 3;
+    background: var(--ink-2);
+    overflow: hidden;
+    /* es un botón: abre la foto grande */
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    cursor: zoom-in;
+    font: inherit;
+    color: inherit;
+  }
+  .card .pic img { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .card:hover .pic img { transform: scale(1.04); }
+  .card .meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .card .price {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--bone);
+  }
+  .card .ask {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey-2);
+    margin-top: 10px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover .ask { color: var(--sand); }
+  .card .ask:hover { color: var(--bone); border-bottom-color: var(--bone); }
+
+  /* visor de fotos */
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(6, 6, 8, 0.96);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: clamp(16px, 4vw, 44px);
+  }
+  .lightbox[hidden] { display: none; }
+  .lightbox img {
+    width: auto;
+    height: auto;
+    max-width: min(94vw, 620px);
+    max-height: 70vh;
+    object-fit: contain;
+  }
+  .lb-info {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .lb-info h3 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+  .lb-info .price {
+    font-family: var(--f-mono);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--sand);
+  }
+  .lb-count {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--grey-2);
+    font-variant-numeric: tabular-nums;
+  }
+  .lb-close, .lb-nav {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--bone);
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .lb-close:hover, .lb-nav:hover { border-color: var(--bone); background: rgba(238, 235, 228, 0.06); }
+  .lb-close {
+    top: clamp(12px, 2.4vw, 26px);
+    right: clamp(12px, 2.4vw, 26px);
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  .lb-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 62px;
+    font-size: 26px;
+    padding-bottom: 4px;
+  }
+  .lb-prev { left: clamp(8px, 2vw, 26px); }
+  .lb-next { right: clamp(8px, 2vw, 26px); }
+  .lb-nav[hidden] { display: none; }
+
+  @media (max-width: 620px) {
+    .lb-nav { width: 40px; height: 52px; font-size: 22px; }
+  }
+
+  /* pieza firma — el único bloque claro de la página, a propósito */
+
+  .feature {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(20px, 3.4vw, 46px);
+    align-items: center;
+    background: var(--bone);
+    color: var(--ink);
+    padding: clamp(18px, 2.6vw, 34px);
+  }
+  .feature-pics { display: grid; gap: 9px; }
+  .feature-pics button {
+    background: #fff;
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    cursor: zoom-in;
+  }
+  .fp-main { aspect-ratio: 4 / 5; }
+  /* una fila pareja, sean tres fotos o cuatro */
+  .fp-thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 9px; }
+  .fp-thumbs button { aspect-ratio: 1 / 1; }
+  .fp-thumbs button img { transition: opacity 0.2s ease; opacity: 0.82; }
+  .fp-thumbs button:hover img { opacity: 1; }
+  .fp-main img { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .feature:hover .fp-main img { transform: scale(1.03); }
+
+  .feature .label { color: #6E6960; }
+  .feature h3 {
+    font-size: clamp(24px, 3.4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    line-height: 0.98;
+    margin: 12px 0 10px;
+  }
+  .feature .price {
+    font-family: var(--f-mono);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 16px;
+  }
+  .feature p.desc { color: #4B4841; max-width: 34ch; font-size: 15px; }
+  /* lo que dice la prenda, traducido */
+  .feature p.quote {
+    font-family: var(--f-serif);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #5C574E;
+    max-width: 34ch;
+    margin-top: 14px;
+    padding-left: 15px;
+    border-left: 1px solid rgba(8, 8, 10, 0.2);
+  }
+  .feature .picker button { border-color: rgba(8, 8, 10, 0.22); color: #4B4841; }
+  .feature .picker button:hover { border-color: var(--ink); color: var(--ink); }
+  .feature .picker button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bone); }
+  .feature .btn { border-color: var(--ink); color: var(--ink); margin-top: 22px; }
+  .feature .btn:hover { background: var(--ink); color: var(--bone); }
+
+  @media (max-width: 820px) {
+    .feature { grid-template-columns: 1fr; }
+  }
+
+  /* capítulos */
+
+  .chapter {
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr) minmax(0, 1.08fr);
+    gap: clamp(18px, 4vw, 48px);
+    align-items: start;
+    padding: clamp(28px, 4vw, 40px) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .chapter:first-of-type { border-top: 0; padding-top: 0; }
+  .chapter .no {
+    font-family: var(--f-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--grey-2);
+    padding-top: 6px;
+  }
+  .chapter h3 {
+    font-size: clamp(26px, 4.4vw, 42px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+  .chapter .series {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+  .chapter p { color: var(--grey); margin-top: 14px; max-width: 40ch; }
+
+  /* talles: en los capítulos son un dato, no un control */
+  .sizes-flat {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey-2);
+    margin-top: 18px;
+  }
+
+  /* selector de talle: esto sí se toca */
+  .picker { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .picker button {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 6px 11px;
+    min-width: 38px;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--grey);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .picker button:hover { border-color: var(--grey); color: var(--bone); }
+  .picker button[aria-pressed="true"] {
+    background: var(--bone);
+    border-color: var(--bone);
+    color: var(--ink);
+  }
+
+  .shot { aspect-ratio: 3 / 4; background: var(--ink-2); overflow: hidden; }
+  .shot img { transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .chapter:hover .shot img { transform: scale(1.03); }
+
+  @media (max-width: 800px) {
+    .chapter { grid-template-columns: 44px minmax(0, 1fr); }
+    .chapter .shot { grid-column: 2; }
+  }
+
+  /* lookbook */
+
+  .lookbook { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .lookbook button {
+    aspect-ratio: 3 / 4;
+    background: var(--ink-2);
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    cursor: zoom-in;
+  }
+  @media (max-width: 700px) { .lookbook { grid-template-columns: repeat(2, 1fr); } }
+
+  /* nosotros */
+
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 60px);
+    align-items: center;
+  }
+  .about p { color: var(--grey); max-width: 46ch; }
+  .about p + p { margin-top: 16px; }
+  .about strong { color: var(--bone); font-weight: 500; }
+  .screen { position: relative; width: 100%; aspect-ratio: 5 / 3; }
+  .screen canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .screen figcaption {
+    position: absolute;
+    left: 0; bottom: -26px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey-2);
+  }
+  @media (max-width: 800px) {
+    .about { grid-template-columns: 1fr; }
+    .screen { order: -1; margin-bottom: 30px; }
+  }
+
+  /* talles */
+
+  .tables {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(26px, 4vw, 52px);
+  }
+  .tables h3 {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sand);
+    margin-bottom: 14px;
+  }
+  .fit-note { color: var(--grey); font-size: 15px; margin-top: 22px; max-width: 52ch; }
+  .tablewrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    min-width: 290px;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+  th, td {
+    text-align: left;
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+  }
+  thead th {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey);
+    font-weight: 400;
+  }
+  tbody th { font-weight: 600; letter-spacing: 0.04em; width: 84px; }
+  td { color: var(--grey); }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    padding-top: 16px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey-2);
+  }
+
+  /* pasos */
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 30px;
+  }
+  .step { border-top: 1px solid var(--rule); padding-top: 16px; }
+  .step .n {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--grey-2);
+  }
+  .step h3 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 10px 0 8px;
+  }
+  .step p { color: var(--grey); font-size: 15px; }
+
+  /* preguntas */
+
+  .faq { border-top: 1px solid var(--rule); }
+  .faq details { border-bottom: 1px solid var(--rule); }
+  .faq summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: clamp(16px, 1.8vw, 19px);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary:hover { color: var(--sand); }
+  .faq summary::after {
+    content: "+";
+    font-family: var(--f-mono);
+    font-size: 18px;
+    color: var(--grey-2);
+    flex: none;
+    transition: transform 0.2s ease, color 0.15s ease;
+  }
+  .faq details[open] summary::after { transform: rotate(45deg); color: var(--sand); }
+  .faq .answer { padding: 0 0 22px; max-width: 60ch; }
+  .faq .answer p { color: var(--grey); }
+  .faq .answer p + p { margin-top: 12px; }
+  .faq .answer a { color: var(--bone); border-bottom: 1px solid var(--grey-2); }
+  .faq .answer a:hover { border-bottom-color: var(--bone); }
+
+  /* contacto */
+
+  .close { padding: clamp(56px, 8vw, 88px) 0 56px; border-top: 1px solid var(--rule); }
+  .close h2 {
+    font-size: clamp(36px, 8.4vw, 96px);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+    text-wrap: balance;
+  }
+  .close h2 em { text-transform: none; letter-spacing: -0.02em; }
+  .close p { color: var(--grey); max-width: 42ch; margin-bottom: 30px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 26px;
+    border: 1px solid var(--bone);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+  .btn:hover { background: var(--bone); color: var(--ink); }
+  .btn.ghost { border-color: var(--rule); color: var(--grey); }
+  .btn.ghost:hover { border-color: var(--bone); background: transparent; color: var(--bone); }
+
+  /* pie */
+
+  footer { border-top: 1px solid var(--rule); padding-top: clamp(34px, 5vw, 56px); }
+  .foot {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+    gap: clamp(26px, 4vw, 48px);
+    align-items: start;
+  }
+  .foot .brand img { height: 78px; }
+  .foot .say {
+    font-family: var(--f-serif);
+    font-size: clamp(20px, 2.6vw, 32px);
+    line-height: 1.25;
+    color: var(--bone);
+    margin-top: 16px;
+    max-width: 16ch;
+  }
+  .foot h4 {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 18px;
+  }
+  .foot ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .foot ul a { color: var(--bone); transition: color 0.15s ease; }
+  .foot ul a:hover { color: var(--grey); }
+
+  @media (max-width: 860px) {
+    .foot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .foot > :first-child { grid-column: 1 / -1; }
+  }
+
+  .colophon {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 30px;
+    justify-content: space-between;
+    margin-top: clamp(34px, 5vw, 56px);
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* la marca, del tamaño del ancho de la página */
+  .wordmark {
+    overflow: hidden;
+    margin-top: clamp(18px, 3vw, 34px);
+    line-height: 0.74;
+  }
+  .wordmark span {
+    display: block;
+    /* calibrado para que la palabra entre justa en el ancho de la página, sin cortarse */
+    font-size: clamp(50px, 20.2vw, 268px);
+    font-weight: 600;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: var(--bone);
+    margin-bottom: -0.16em;
+    white-space: nowrap;
+  }
+
+  /* aparición al hacer scroll */
+  .rise {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .rise.on { opacity: 1; transform: none; }
+  .rise.photo img { transform: scale(1.07); transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .rise.photo.on img { transform: none; }
+
+  /* entran de a una, no todas juntas */
+  .grid .rise:nth-child(2), .lookbook .rise:nth-child(2), .pillars .rise:nth-child(2), .steps .rise:nth-child(2) { transition-delay: 0.07s; }
+  .grid .rise:nth-child(3), .lookbook .rise:nth-child(3), .pillars .rise:nth-child(3), .steps .rise:nth-child(3) { transition-delay: 0.14s; }
+  .grid .rise:nth-child(4), .pillars .rise:nth-child(4) { transition-delay: 0.21s; }
+  .grid .rise:nth-child(5) { transition-delay: 0.28s; }
+  .grid .rise:nth-child(6) { transition-delay: 0.35s; }
+  .grid .rise:nth-child(7) { transition-delay: 0.42s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .hero img, .ticker-track { animation: none !important; transition: none !important; }
+    .rise, .rise.photo img { opacity: 1; transform: none; }
+  }
+</style>
+
+<div class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/logo.png" alt="Thairos" /></a>
+    <ul id="nav-links">
+      <li><a class="label" href="#tienda">Tienda</a></li>
+      <li><a class="label" href="#firma">Piezas firma</a></li>
+      <li><a class="label" href="#nosotros">Nosotros</a></li>
+      <li><a class="label" href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+
+<header class="hero" id="top">
+  <img src="img/hero.jpg" alt="Polo Thairos con escudo y firma, reflejado en un espejo redondo." />
+  <div class="veil"></div>
+  <div class="hero-copy wrap">
+    <h1>Thairos</h1>
+    <p>We have something to say.</p>
+    <span class="label">Estudio · 2023 · Uruguay</span>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span>We have something to say</span><span>Thairos</span><span>Volumen Uno</span><span>Usado por quienes hablan</span><span>Est. 2023</span><span>Internacional</span>
+    <span>We have something to say</span><span>Thairos</span><span>Volumen Uno</span><span>Usado por quienes hablan</span><span>Est. 2023</span><span>Internacional</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="manifesto" id="manifiesto">
+    <div class="eyebrow rise"><span class="label">Manifiesto / 01</span></div>
+    <h2 class="rise">No hacemos ropa.<br>Hacemos <em>declaraciones.</em></h2>
+    <div class="columns rise">
+      <div>
+        <p>Thairos existe para quienes se niegan a desaparecer en el ruido. Cada puntada lleva una intención. Cada silueta, una postura. Vestimos identidad, no cuerpos.</p>
+      </div>
+      <div>
+        <p>Nacida de la fricción entre herencia y modernidad, Thairos es un estudio de presencia — un uniforme para los que no piden perdón.</p>
+        <p>Esto no es una marca. Es un movimiento de cultura, confianza y autoexpresión sin filtro, llevado en voz alta — incluso en silencio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pilares">
+    <div class="pillars">
+      <div class="pillar rise">
+        <span class="n">01</span>
+        <h3>Identidad</h3>
+        <p>Lo que sos, hecho visible.</p>
+      </div>
+      <div class="pillar rise">
+        <span class="n">02</span>
+        <h3>Cultura</h3>
+        <p>Cosida desde donde venimos.</p>
+      </div>
+      <div class="pillar rise">
+        <span class="n">03</span>
+        <h3>Expresión</h3>
+        <p>Sin traducción. Sin disculpas.</p>
+      </div>
+      <div class="pillar rise">
+        <span class="n">04</span>
+        <h3>Confianza</h3>
+        <p>Se lleva antes de decirse.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="tienda">
+    <div class="eyebrow rise"><span class="label">Tienda / Volumen Uno</span></div>
+    <div class="head rise">
+      <h2>Volumen <em>Uno</em></h2>
+      <span class="label">Talles S &ndash; XL</span>
+    </div>
+    <p class="lead rise">Tela premium, 85% algodón. Diseñadas para el peso, la caída y el silencio. Enviadas desde Montevideo.</p>
+
+    <div class="grid">
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Travis" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Travis.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Travis">
+          <img src="img/p-travis.jpg" alt="Remera negra oversize con la estampa de Travis." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Travis</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Travis.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Jordan 23" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Jordan%2023.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Jordan 23">
+          <img src="img/p-jordan23.jpg" alt="Remera negra oversize con la estampa Jordan 23." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Jordan 23</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Jordan%2023.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Champions" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Champions.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Champions">
+          <img src="img/p-champions.jpg" alt="Remera negra oversize con la estampa Champions." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Champions</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Champions.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Risa" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Risa.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Risa">
+          <img src="img/p-risa.jpg" alt="Remera negra oversize con la estampa Risa." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Risa</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Risa.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Tupac" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Tupac.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Tupac">
+          <img src="img/p-tupac.jpg" alt="Remera negra oversize con la estampa de Tupac." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Tupac</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Tupac.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Iron Mike" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Iron%20Mike.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Iron Mike">
+          <img src="img/p-ironmike.jpg" alt="Remera negra oversize con la estampa Iron Mike." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Iron Mike</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Iron%20Mike.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Campeón UFC" data-price="$ 1.250" data-wa="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Campe%C3%B3n%20UFC.%20Mi%20talle%20es%3A%20" aria-label="Ampliar foto de Remera Oversize Campeón UFC">
+          <img src="img/p-ufc.jpg" alt="Remera negra oversize con la estampa Campeón UFC." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Campeón UFC</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Campe%C3%B3n%20UFC.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="firma">
+    <div class="eyebrow rise"><span class="label">Pieza firma / 001</span></div>
+    <div class="feature rise">
+      <div class="feature-pics">
+        <button class="fp-main" type="button" data-name="Hoodie Corona Plata" data-price="$ 2.190" aria-label="Ampliar la espalda del Hoodie Corona Plata">
+          <img src="img/h-espalda.jpg" alt="Espalda del Hoodie Corona Plata, con el logo plateado dentro de una corona de espinas." loading="lazy" />
+        </button>
+        <div class="fp-thumbs">
+          <button type="button" data-name="Hoodie Corona Plata" data-price="$ 2.190" aria-label="Ampliar el frente del Hoodie Corona Plata">
+            <img src="img/h-frente.jpg" alt="Frente del Hoodie Corona Plata, con el logo chico al pecho." loading="lazy" />
+          </button>
+          <button type="button" data-name="Hoodie Corona Plata" data-price="$ 2.190" aria-label="Ampliar el detalle de la capucha">
+            <img src="img/h-capucha.jpg" alt="Detalle de la capucha y los cordones del Hoodie Corona Plata." loading="lazy" />
+          </button>
+          <button type="button" data-name="Hoodie Corona Plata" data-price="$ 2.190" aria-label="Ampliar el detalle del bolsillo">
+            <img src="img/h-bolsillo.jpg" alt="Detalle del bolsillo canguro y el lavado a la piedra." loading="lazy" />
+          </button>
+          <button type="button" data-name="Hoodie Corona Plata" data-price="$ 2.190" aria-label="Ampliar el detalle de la manga">
+            <img src="img/h-manga.jpg" alt="Detalle de la manga y el puño del Hoodie Corona Plata." loading="lazy" />
+          </button>
+        </div>
+      </div>
+      <div>
+        <span class="label">Hoodies · Producción corta</span>
+        <h3>Hoodie Corona Plata</h3>
+        <div class="price">$ 2.190</div>
+        <p class="desc">Frisa pesada con lavado a la piedra. El logo en plata sobre la espalda, dentro de una corona de espinas, y la versión chica al pecho. Diseño propio, de punta a punta.</p>
+        <p class="sizes-flat">Talles S &ndash; XL</p>
+        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Hoodie%20Corona%20Plata.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="firma-2">
+    <div class="eyebrow rise"><span class="label">Pieza firma / 002</span></div>
+    <div class="feature rise">
+      <div class="feature-pics">
+        <button class="fp-main" type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar la espalda del Hoodie The Thairos Club">
+          <img src="img/c-espalda.jpg" alt="Espalda del hoodie celeste con la leyenda The Thairos Club, Members Only." loading="lazy" />
+        </button>
+        <div class="fp-thumbs">
+          <button type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar el frente del hoodie">
+            <img src="img/c-frente.jpg" alt="Frente del hoodie celeste, con la firma Thairos al pecho." loading="lazy" />
+          </button>
+          <button type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar el detalle del estampado">
+            <img src="img/c-texto.jpg" alt="Detalle del texto impreso al frente del hoodie." loading="lazy" />
+          </button>
+        </div>
+      </div>
+      <div>
+        <span class="label">Hoodies · Producción corta</span>
+        <h3>Hoodie The Thairos Club</h3>
+        <div class="price">$ 2.190</div>
+        <p class="desc">Frisa pesada en celeste. Al frente, la firma y el manifiesto estampado en letra chica. En la espalda, <strong>The Thairos Club · Members Only</strong>.</p>
+        <p class="quote">Vestirse no es taparse. Es mostrar quién sos. Vestirse es una forma de hablar, y nosotros tenemos algo que decir.</p>
+        <div class="picker" role="group" aria-label="Elegí tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Hoodie%20The%20Thairos%20Club.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="firma-3">
+    <div class="eyebrow rise"><span class="label">Pieza firma / 003</span></div>
+    <div class="feature rise">
+      <div class="feature-pics">
+        <button class="fp-main" type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en la escalera">
+          <img src="img/j-escalera.jpg" alt="Polo Thairos verde en una escalera con alfombra roja." loading="lazy" />
+        </button>
+        <div class="fp-thumbs">
+          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en los escalones">
+            <img src="img/j-frente.jpg" alt="Polo Thairos, sentado en unos escalones de madera, al aire libre." loading="lazy" />
+          </button>
+          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar la espalda del polo">
+            <img src="img/j-espalda.jpg" alt="Espalda del polo, con el escudo a la altura del cuello." loading="lazy" />
+          </button>
+          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo de perfil">
+            <img src="img/j-perfil.jpg" alt="Polo Thairos de perfil, frente a una proyección del mar." loading="lazy" />
+          </button>
+          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en la sala">
+            <img src="img/j-sala.jpg" alt="Polo Thairos en una sala blanca, con una proyección de fondo." loading="lazy" />
+          </button>
+        </div>
+      </div>
+      <div>
+        <span class="label">Polo · Cápsula 002</span>
+        <h3>Polo Boxy</h3>
+        <div class="price">$ 1.250</div>
+        <p class="desc">Remera polo de manga corta, cuello abierto y corte boxy: ancho de hombro, caída recta, sin quedar largo.</p>
+        <p class="desc">El escudo no es un logo cualquiera. Lleva <strong>corona y laurel</strong>, y al costado <strong>cinco estrellas</strong> — el lenguaje de las camisetas de club de otra época, pero sin equipo, sin torneo y sin patrocinante. La insignia sola.</p>
+        <p class="desc"><strong>Cápsula 002:</strong> se produce por tanda y por talle. No hay reposición automática.</p>
+        <div class="picker" role="group" aria-label="Elegí tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Polo%20Boxy.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lookbook">
+    <div class="head rise">
+      <h2>Lookbook</h2>
+      <span class="label">Tocá para ampliar</span>
+    </div>
+    <div class="lookbook">
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb1.jpg" alt="Remera negra Thairos bajando una escalera, junto a un tapiz antiguo." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb4.jpg" alt="Remera negra Thairos con estampa fotográfica, caminando por una terraza." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb2.jpg" alt="Remera negra Thairos sostenida al frente, en una terraza." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb3.jpg" alt="Detalle de la estampa fotográfica sobre algodón negro." loading="lazy" /></button>
+    </div>
+  </section>
+
+  <section id="nosotros">
+    <div class="head rise">
+      <h2>Nosotros</h2>
+      <span class="label">Cómo se hace</span>
+    </div>
+
+    <div class="about rise">
+      <div>
+        <p>Thairos es un <strong>estudio</strong>, no un depósito con ropa esperando. Empezó en 2023 en Uruguay con una idea sencilla: que una prenda pueda decir algo.</p>
+        <p>Cada estampa arranca como una imagen que se <strong>separa en semitono</strong> — se descompone en miles de puntos de distinto tamaño — y recién ahí se imprime en DTF sobre el algodón. Es la lógica de la imprenta vieja aplicada a una remera. Por eso las estampas se leen de lejos y aguantan el uso.</p>
+        <p>Se produce por tanda y por talle, del S al XL. Nada de packs genéricos: se hace lo que se vende.</p>
+      </div>
+      <figure class="screen">
+        <canvas id="halftone" aria-hidden="true"></canvas>
+        <figcaption>El logo, separado en semitono a 45°</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="talles">
+    <div class="head rise">
+      <h2>Talles</h2>
+      <span class="label">Prenda en plano · centímetros</span>
+    </div>
+
+    <div class="tables rise">
+      <div>
+        <h3>Corte oversize</h3>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Talle</th>
+                <th scope="col">Ancho de pecho</th>
+                <th scope="col">Largo total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">S</th><td>57</td><td>70</td></tr>
+              <tr><th scope="row">M</th><td>60</td><td>73</td></tr>
+              <tr><th scope="row">L</th><td>63</td><td>76</td></tr>
+              <tr><th scope="row">XL</th><td>66</td><td>79</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <h3>Corte boxy</h3>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Talle</th>
+                <th scope="col">Ancho de pecho</th>
+                <th scope="col">Largo total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">S</th><td>57</td><td>63</td></tr>
+              <tr><th scope="row">M</th><td>60</td><td>66</td></tr>
+              <tr><th scope="row">L</th><td>63</td><td>69</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="fit-note rise">Medidas de la prenda apoyada en plano, en centímetros. El boxy tiene el mismo ancho que el oversize pero es más corto. Si estás entre dos talles, andá al más grande.</p>
+  </section>
+
+  <section id="comprar">
+    <div class="head rise">
+      <h2>Cómo comprar</h2>
+      <span class="label">Atendido uno a uno</span>
+    </div>
+
+    <div class="steps">
+      <div class="step rise">
+        <span class="n">01</span>
+        <h3>Elegí</h3>
+        <p>Tocá la prenda que querés. Se abre WhatsApp con el mensaje ya escrito.</p>
+      </div>
+      <div class="step rise">
+        <span class="n">02</span>
+        <h3>Decinos el talle</h3>
+        <p>Completá tu talle y tu ciudad. Te confirmamos disponibilidad al momento.</p>
+      </div>
+      <div class="step rise">
+        <span class="n">03</span>
+        <h3>Coordinamos</h3>
+        <p>Pagás con tarjeta hasta en 12 cuotas, por transferencia, o al momento de la entrega. Al interior va por DAC; en Montevideo arreglamos entrega o retiro.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="preguntas">
+    <div class="head rise">
+      <h2>Preguntas</h2>
+      <span class="label">Lo que más nos consultan</span>
+    </div>
+
+    <div class="faq rise">
+      <details>
+        <summary>¿Qué talles manejan?</summary>
+        <div class="answer">
+          <p>Del S al XL en corte oversize, y del S al L en boxy. Las medidas exactas de cada uno están en <a href="#talles">la tabla de talles</a>, tomadas con la prenda apoyada en plano. Si estás entre dos, andá al más grande.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Cómo puedo pagar?</summary>
+        <div class="answer">
+          <p>Con <strong>tarjeta de crédito o débito, hasta en 12 cuotas</strong>. También por transferencia, o al momento de la entrega.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿De qué tela son las prendas?</summary>
+        <div class="answer">
+          <p>Tela premium, 85% algodón. Las remeras son de corte oversize o boxy según el modelo, y el hoodie lleva frisa por dentro con lavado a la piedra.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Las estampas se despegan con el uso?</summary>
+        <div class="answer">
+          <p>No. Cada imagen se separa en semitono —se descompone en miles de puntos— y se imprime en DTF sobre el algodón. Es la misma lógica de la imprenta vieja: la estampa queda integrada a la tela, se lee de lejos y aguanta los lavados.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Cómo hago el pedido?</summary>
+        <div class="answer">
+          <p>Elegís la prenda, tocás tu talle y después "Consultar por WhatsApp". Se abre el chat con el mensaje ya escrito, con el modelo y el talle que marcaste. Solo tenés que mandarlo.</p>
+          <p>Si preferís, también respondemos por Instagram en <a href="https://instagram.com/thairos_uy" target="_blank" rel="noopener">@thairos_uy</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Cómo son los envíos?</summary>
+        <div class="answer">
+          <p>Al interior del país lo mandamos por <strong>DAC</strong>. El costo depende de la localidad y te lo confirmamos al coordinar el pedido.</p>
+          <p>En Montevideo coordinamos la <strong>entrega a domicilio</strong> con vos, o si preferís pasás a <strong>retirar por nuestro punto</strong> en los días que arreglemos.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>¿Hay stock de todos los modelos?</summary>
+        <div class="answer">
+          <p>El stock puede variar según el modelo y el talle. Escribinos y te lo confirmamos antes de que hagas la compra, así no te llevás ninguna sorpresa.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <div class="close" id="contacto">
+    <div class="eyebrow"><span class="label">El movimiento</span></div>
+    <h2>Unite al movimiento <em>Thairos.</em></h2>
+    <p>Los primeros lanzamientos, lookbooks crudos y piezas inéditas. Sin ruido. Solo señal.</p>
+    <div class="actions">
+      <a class="btn" href="https://wa.me/59891368727" target="_blank" rel="noopener">Escribinos por WhatsApp →</a>
+      <a class="btn ghost" href="https://instagram.com/thairos_uy" target="_blank" rel="noopener">Seguinos en Instagram</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot">
+      <div>
+        <span class="brand"><img src="img/logo.png" alt="Thairos" /></span>
+        <p class="say">We have something to say.</p>
+      </div>
+
+      <div>
+        <h4>Tienda</h4>
+        <ul>
+          <li><a href="#tienda">Todas las piezas</a></li>
+          <li><a href="#firma">Pieza firma</a></li>
+          <li><a href="#lookbook">Lookbook</a></li>
+          <li><a href="#talles">Talles</a></li>
+          <li><a href="#preguntas">Envíos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Estudio</h4>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#firma">Piezas firma</a></li>
+          <li><a href="#comprar">Cómo comprar</a></li>
+          <li><a href="#preguntas">Preguntas</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Conectar</h4>
+        <ul>
+          <li><a href="https://wa.me/59891368727" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instagram.com/thairos_uy" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="colophon">
+      <span class="label">Thairos · Streetwear Worldwide</span>
+      <span class="label">Montevideo · +598 91 368 727</span>
+    </div>
+
+    <div class="wordmark" aria-hidden="true"><span>Thairos</span></div>
+  </footer>
+
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+  <button class="lb-close" type="button" id="lb-close" aria-label="Cerrar">&#10005;</button>
+  <button class="lb-nav lb-prev" type="button" id="lb-prev" aria-label="Foto anterior">&#8249;</button>
+  <button class="lb-nav lb-next" type="button" id="lb-next" aria-label="Foto siguiente">&#8250;</button>
+  <img id="lb-img" alt="" />
+  <div class="lb-info">
+    <h3 id="lb-name"></h3>
+    <span class="price" id="lb-price"></span>
+    <span class="lb-count" id="lb-count"></span>
+  </div>
+  <a class="btn" id="lb-wa" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+</div>
+
+<script>
+(function () {
+  var PHONE = '59891368727';
+
+  function articulo(nombre) { return /^(hoodie|buzo|polo|jersey|campera)/i.test(nombre) ? 'el' : 'la'; }
+
+  // El talle elegido reescribe el mensaje que se abre en WhatsApp
+  function link(producto, talle) {
+    var t = 'Hola Thairos, quiero ' + articulo(producto) + ' ' + producto;
+    t += talle ? ' en talle ' + talle + '.' : '. Mi talle es: ';
+    return 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(t);
+  }
+
+  function unidad(el) { return el.closest('.card, .feature'); }
+  function nombreDe(u) {
+    var h = u && u.querySelector('h3');
+    return h ? h.textContent.trim() : '';
+  }
+  function ctaDe(u) { return u ? u.querySelector('.ask, .btn') : null; }
+
+  document.querySelectorAll('.picker').forEach(function (picker) {
+    var u = unidad(picker);
+    if (!u) return;
+    var botones = picker.querySelectorAll('button');
+    botones.forEach(function (b) {
+      b.setAttribute('aria-pressed', 'false');
+      b.addEventListener('click', function () {
+        var yaEstaba = b.getAttribute('aria-pressed') === 'true';
+        botones.forEach(function (o) { o.setAttribute('aria-pressed', 'false'); });
+        if (!yaEstaba) b.setAttribute('aria-pressed', 'true');
+        u.dataset.size = yaEstaba ? '' : (b.dataset.size || '');
+        var cta = ctaDe(u);
+        if (cta) cta.href = link(nombreDe(u), u.dataset.size);
+      });
+    });
+  });
+
+  var box = document.getElementById('lightbox');
+  if (!box) return;
+  var img = document.getElementById('lb-img');
+  var name = document.getElementById('lb-name');
+  var price = document.getElementById('lb-price');
+  var count = document.getElementById('lb-count');
+  var wa = document.getElementById('lb-wa');
+  var close = document.getElementById('lb-close');
+  var prev = document.getElementById('lb-prev');
+  var next = document.getElementById('lb-next');
+  var grupo = [], indice = 0, ultimo = null;
+
+  // El hoodie recorre sus cinco fotos; las remeras, de una prenda a la siguiente
+  function grupoDe(btn) {
+    var f = btn.closest('.feature');
+    if (f) return Array.prototype.slice.call(f.querySelectorAll('.feature-pics button'));
+    var lb = btn.closest('.lookbook');
+    if (lb) return Array.prototype.slice.call(lb.querySelectorAll('button'));
+    return Array.prototype.slice.call(document.querySelectorAll('.grid .card .pic'));
+  }
+
+  function mostrar(i) {
+    if (!grupo.length) return;
+    indice = (i + grupo.length) % grupo.length;
+    var btn = grupo[indice];
+    var fuente = btn.querySelector('img');
+    var u = unidad(btn);
+    var producto = btn.dataset.name || nombreDe(u);
+    img.src = fuente.src;
+    img.alt = fuente.alt;
+    name.textContent = producto;
+    price.textContent = btn.dataset.price || '';
+    count.textContent = grupo.length > 1 ? (indice + 1) + ' / ' + grupo.length : '';
+    // las fotos del lookbook no son una prenda a la venta: ahi no va el botón de pedido
+    if (producto) {
+      wa.hidden = false;
+      wa.href = link(producto, u ? (u.dataset.size || '') : '');
+    } else {
+      wa.hidden = true;
+    }
+    prev.hidden = next.hidden = grupo.length < 2;
+  }
+
+  function abrir(btn) {
+    grupo = grupoDe(btn);
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    ultimo = btn;
+    mostrar(grupo.indexOf(btn));
+    close.focus();
+  }
+
+  function ocultar() {
+    box.hidden = true;
+    document.body.style.overflow = '';
+    img.removeAttribute('src');
+    if (ultimo) { ultimo.focus(); ultimo = null; }
+  }
+
+  document.querySelectorAll('.card .pic, .feature-pics button, .lookbook button').forEach(function (btn) {
+    btn.addEventListener('click', function () { abrir(btn); });
+  });
+
+  prev.addEventListener('click', function () { mostrar(indice - 1); });
+  next.addEventListener('click', function () { mostrar(indice + 1); });
+  close.addEventListener('click', ocultar);
+  // clic en el fondo, no en la foto ni en los botones
+  box.addEventListener('click', function (e) { if (e.target === box) ocultar(); });
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape') ocultar();
+    else if (e.key === 'ArrowLeft') mostrar(indice - 1);
+    else if (e.key === 'ArrowRight') mostrar(indice + 1);
+  });
+})();
+
+(function () {
+  var canvas = document.getElementById('halftone');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var mask = document.createElement('canvas');
+  var mctx = mask.getContext('2d', { willReadFrequently: true });
+
+  var W = 0, H = 0, dpr = 1, data = null, cell = 8, start = null, running = false;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function css(n) {
+    return getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  }
+
+  // La palabra separada en un mapa de cobertura, como un fotolito
+  function buildMask() {
+    mask.width = W;
+    mask.height = H;
+    mctx.fillStyle = '#000';
+    mctx.fillRect(0, 0, W, H);
+
+    var size = W * 0.2;
+    mctx.fillStyle = '#fff';
+    mctx.textAlign = 'center';
+    mctx.textBaseline = 'middle';
+    if ('letterSpacing' in mctx) mctx.letterSpacing = Math.round(size * 0.07) + 'px';
+    mctx.font = '600 ' + size + 'px ' + css('--f-sans');
+    mctx.fillText('THAIROS', W / 2, H * 0.5);
+
+    data = mctx.getImageData(0, 0, W, H).data;
+    cell = Math.max(5, Math.round(W / 130));
+  }
+
+  function coverage(x, y, t) {
+    var ink = data[((y | 0) * W + (x | 0)) * 4] / 255;
+    var wave = 0.5 + 0.5 * Math.sin(x * 0.011 + t * 0.45) * Math.cos(y * 0.017 - t * 0.3);
+    return Math.max(ink, wave * 0.15);
+  }
+
+  function draw(t, grow) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+
+    var a = 45 * Math.PI / 180;
+    var cos = Math.cos(a), sin = Math.sin(a);
+    var diag = Math.hypot(W, H) / 2 + cell;
+
+    ctx.fillStyle = css('--bone');
+    ctx.beginPath();
+    for (var u = -diag; u < diag; u += cell) {
+      for (var v = -diag; v < diag; v += cell) {
+        var x = W / 2 + u * cos - v * sin;
+        var y = H / 2 + u * sin + v * cos;
+        if (x < 0 || y < 0 || x >= W || y >= H) continue;
+        var c = coverage(x, y, t);
+        if (c < 0.05) continue;
+        // la trama entra de izquierda a derecha, como pasa el cabezal
+        var local = Math.max(0, Math.min(1, grow * 1.7 - (x / W) * 0.7));
+        var r = cell * 0.63 * Math.sqrt(c) * local;
+        if (r < 0.22) continue;
+        ctx.moveTo(x + r, y);
+        ctx.arc(x, y, r, 0, 6.2832);
+      }
+    }
+    ctx.fill();
+  }
+
+  function measure() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var rect = canvas.getBoundingClientRect();
+    W = Math.max(1, Math.round(rect.width));
+    H = Math.max(1, Math.round(rect.height));
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    buildMask();
+  }
+
+  function frame(now) {
+    if (start === null) start = now;
+    var el = (now - start) / 1000;
+    var grow = Math.min(1, el / 1.2);
+    grow = 1 - Math.pow(1 - grow, 3);
+    draw(el, grow);
+    if (el < 2.6) requestAnimationFrame(frame);
+    else running = false;
+  }
+
+  function play() {
+    measure();
+    if (reduced) { draw(0, 1); return; }
+    start = null;
+    running = true;
+    requestAnimationFrame(frame);
+  }
+
+  var pending;
+  window.addEventListener('resize', function () {
+    clearTimeout(pending);
+    pending = setTimeout(function () { if (!running) { measure(); draw(0, 1); } }, 160);
+  });
+
+  // La trama se imprime cuando la sección entra en pantalla
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { play(); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(canvas);
+    measure();
+  } else {
+    play();
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { if (!running) { measure(); draw(0, 1); } });
+  }
+})();
+
+(function () {
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('nav-links');
+  if (!burger || !links) return;
+
+  function cerrar() {
+    links.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Abrir menú');
+  }
+
+  burger.addEventListener('click', function () {
+    var abierto = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    burger.setAttribute('aria-label', abierto ? 'Cerrar menú' : 'Abrir menú');
+  });
+
+  // al tocar un link el menú se cierra solo
+  links.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') cerrar();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') cerrar();
+  });
+
+  // si se vuelve a pantalla grande, que no quede el panel colgado
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 640) cerrar();
+  });
+})();
+
+(function () {
+  var items = document.querySelectorAll('.rise');
+  if (!('IntersectionObserver' in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('on');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -12% 0px' });
+  items.forEach(function (el) { io.observe(el); });
+})();
+
+(function () {
+  // Trae el stock y precio real desde el inventario y lo refleja en la web.
+  // Si la llamada falla (o todavia no se configuro la base), la pagina
+  // sigue funcionando como antes, sin romper nada.
+  fetch('/api/products')
+    .then(function (r) { return r.ok ? r.json() : []; })
+    .then(function (data) {
+      if (!Array.isArray(data) || !data.length) return;
+      var porNombre = {};
+      data.forEach(function (p) { porNombre[p.name] = p; });
+
+      document.querySelectorAll('.card, .feature').forEach(function (unidad) {
+        var h3 = unidad.querySelector('h3');
+        if (!h3) return;
+        var p = porNombre[h3.textContent.trim()];
+        if (!p) return;
+
+        // precio: pesos sin decimales, con separador de miles
+        var precioTexto = '$ ' + Number(p.price).toLocaleString('es-UY');
+        unidad.querySelectorAll('.price').forEach(function (el) { el.textContent = precioTexto; });
+
+        var sinStockTotal = Object.values(p.sizes || {}).every(function (n) { return !n; });
+
+        unidad.querySelectorAll('.picker button[data-size]').forEach(function (btn) {
+          var stock = p.sizes ? p.sizes[btn.dataset.size] : undefined;
+          if (stock === 0) {
+            btn.disabled = true;
+            btn.setAttribute('aria-disabled', 'true');
+            btn.style.opacity = '0.35';
+            btn.style.textDecoration = 'line-through';
+          }
+        });
+
+        if (sinStockTotal) {
+          var cta = unidad.querySelector('.ask, .btn');
+          if (cta) {
+            cta.textContent = 'Sin stock por ahora';
+            cta.style.pointerEvents = 'none';
+            cta.style.opacity = '0.5';
+          }
+        }
+      });
+    })
+    .catch(function () { /* sin inventario conectado todavia: no hace nada */ });
+})();
+</script>
+
+</body>
+</html>
