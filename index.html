@@ -863,23 +863,10 @@
     white-space: nowrap;
   }
 
-  /* aparición al hacer scroll */
-  .rise {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-  .rise.on { opacity: 1; transform: none; }
-  .rise.photo img { transform: scale(1.07); transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .rise.photo.on img { transform: none; }
-
-  /* entran de a una, no todas juntas */
-  .grid .rise:nth-child(2), .lookbook .rise:nth-child(2), .pillars .rise:nth-child(2), .steps .rise:nth-child(2) { transition-delay: 0.07s; }
-  .grid .rise:nth-child(3), .lookbook .rise:nth-child(3), .pillars .rise:nth-child(3), .steps .rise:nth-child(3) { transition-delay: 0.14s; }
-  .grid .rise:nth-child(4), .pillars .rise:nth-child(4) { transition-delay: 0.21s; }
-  .grid .rise:nth-child(5) { transition-delay: 0.28s; }
-  .grid .rise:nth-child(6) { transition-delay: 0.35s; }
-  .grid .rise:nth-child(7) { transition-delay: 0.42s; }
+  /* La aparición al scrollear se quitó: dejaba bloques en negro si bajabas rápido.
+     La clase sigue en el HTML por compatibilidad, pero ya no esconde nada. */
+  .rise { opacity: 1; transform: none; }
+  .rise.photo img { transform: none; }
 
   @media (prefers-reduced-motion: reduce) {
     *, .hero img, .ticker-track { animation: none !important; transition: none !important; }
@@ -1038,6 +1025,46 @@
         <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
         <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Campe%C3%B3n%20UFC.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
       </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar foto de Hoodie The Thairos Club">
+          <img src="img/c-espalda.jpg" alt="Espalda del hoodie celeste con la leyenda The Thairos Club, Members Only." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Hoodies</span><span class="price">$ 2.190</span></div>
+        <h3>Hoodie The Thairos Club</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Hoodie%20The%20Thairos%20Club.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Polo Boxy" data-price="$ 1.250" aria-label="Ampliar foto de Polo Boxy">
+          <img src="img/j-escalera.jpg" alt="Polo Thairos verde en una escalera con alfombra roja." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Polos</span><span class="price">$ 1.250</span></div>
+        <h3>Polo Boxy</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Polo%20Boxy.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Slim Shady" data-price="$ 1.250" aria-label="Ampliar foto de Remera Oversize Slim Shady">
+          <img src="img/p-slimshady.jpg" alt="Remera negra oversize con la estampa Slim Shady." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Slim Shady</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Slim%20Shady.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Kendo" data-price="$ 1.250" aria-label="Ampliar foto de Remera Oversize Kendo">
+          <img src="img/p-kendo.jpg" alt="Remera negra oversize con la estampa Kendo." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Kendo</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Kendo.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -1074,69 +1101,6 @@
     </div>
   </section>
 
-  <section id="firma-2">
-    <div class="eyebrow rise"><span class="label">Pieza firma / 002</span></div>
-    <div class="feature rise">
-      <div class="feature-pics">
-        <button class="fp-main" type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar la espalda del Hoodie The Thairos Club">
-          <img src="img/c-espalda.jpg" alt="Espalda del hoodie celeste con la leyenda The Thairos Club, Members Only." loading="lazy" />
-        </button>
-        <div class="fp-thumbs">
-          <button type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar el frente del hoodie">
-            <img src="img/c-frente.jpg" alt="Frente del hoodie celeste, con la firma Thairos al pecho." loading="lazy" />
-          </button>
-          <button type="button" data-name="Hoodie The Thairos Club" data-price="$ 2.190" aria-label="Ampliar el detalle del estampado">
-            <img src="img/c-texto.jpg" alt="Detalle del texto impreso al frente del hoodie." loading="lazy" />
-          </button>
-        </div>
-      </div>
-      <div>
-        <span class="label">Hoodies · Producción corta</span>
-        <h3>Hoodie The Thairos Club</h3>
-        <div class="price">$ 2.190</div>
-        <p class="desc">Frisa pesada en celeste. Al frente, la firma y el manifiesto estampado en letra chica. En la espalda, <strong>The Thairos Club · Members Only</strong>.</p>
-        <p class="quote">Vestirse no es taparse. Es mostrar quién sos. Vestirse es una forma de hablar, y nosotros tenemos algo que decir.</p>
-        <div class="picker" role="group" aria-label="Elegí tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
-        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Hoodie%20The%20Thairos%20Club.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp →</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="firma-3">
-    <div class="eyebrow rise"><span class="label">Pieza firma / 003</span></div>
-    <div class="feature rise">
-      <div class="feature-pics">
-        <button class="fp-main" type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en la escalera">
-          <img src="img/j-escalera.jpg" alt="Polo Thairos verde en una escalera con alfombra roja." loading="lazy" />
-        </button>
-        <div class="fp-thumbs">
-          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en los escalones">
-            <img src="img/j-frente.jpg" alt="Polo Thairos, sentado en unos escalones de madera, al aire libre." loading="lazy" />
-          </button>
-          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar la espalda del polo">
-            <img src="img/j-espalda.jpg" alt="Espalda del polo, con el escudo a la altura del cuello." loading="lazy" />
-          </button>
-          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo de perfil">
-            <img src="img/j-perfil.jpg" alt="Polo Thairos de perfil, frente a una proyección del mar." loading="lazy" />
-          </button>
-          <button type="button" data-name="Polo Boxy Thairos" data-price="$ 1.250" aria-label="Ampliar el polo en la sala">
-            <img src="img/j-sala.jpg" alt="Polo Thairos en una sala blanca, con una proyección de fondo." loading="lazy" />
-          </button>
-        </div>
-      </div>
-      <div>
-        <span class="label">Polo · Cápsula 002</span>
-        <h3>Polo Boxy</h3>
-        <div class="price">$ 1.250</div>
-        <p class="desc">Remera polo de manga corta, cuello abierto y corte boxy: ancho de hombro, caída recta, sin quedar largo.</p>
-        <p class="desc">El escudo no es un logo cualquiera. Lleva <strong>corona y laurel</strong>, y al costado <strong>cinco estrellas</strong> — el lenguaje de las camisetas de club de otra época, pero sin equipo, sin torneo y sin patrocinante. La insignia sola.</p>
-        <p class="desc"><strong>Cápsula 002:</strong> se produce por tanda y por talle. No hay reposición automática.</p>
-        <div class="picker" role="group" aria-label="Elegí tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
-        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Polo%20Boxy.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp →</a>
-      </div>
-    </div>
-  </section>
-
   <section id="lookbook">
     <div class="head rise">
       <h2>Lookbook</h2>
@@ -1147,6 +1111,12 @@
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb4.jpg" alt="Remera negra Thairos con estampa fotográfica, caminando por una terraza." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb2.jpg" alt="Remera negra Thairos sostenida al frente, en una terraza." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb3.jpg" alt="Detalle de la estampa fotográfica sobre algodón negro." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-frente.jpg" alt="Polo Thairos, sentado en unos escalones de madera, al aire libre." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-espalda.jpg" alt="Espalda del polo, con el escudo a la altura del cuello." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-perfil.jpg" alt="Polo Thairos de perfil, frente a una proyección del mar." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-sala.jpg" alt="Polo Thairos en una sala blanca, con una proyección de fondo." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/c-frente.jpg" alt="Frente del hoodie celeste, con la firma Thairos al pecho." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/c-texto.jpg" alt="Detalle del texto impreso al frente del hoodie celeste." loading="lazy" /></button>
     </div>
   </section>
 
@@ -1639,20 +1609,6 @@
 })();
 
 (function () {
-  var items = document.querySelectorAll('.rise');
-  if (!('IntersectionObserver' in window)) {
-    for (var i = 0; i < items.length; i++) items[i].classList.add('on');
-    return;
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
-    });
-  }, { rootMargin: '0px 0px -12% 0px' });
-  items.forEach(function (el) { io.observe(el); });
-})();
-
-(function () {
   // Trae el stock y precio real desde el inventario y lo refleja en la web.
   // Si la llamada falla (o todavia no se configuro la base), la pagina
   // sigue funcionando como antes, sin romper nada.
@@ -1700,4 +1656,4 @@
 </script>
 
 </body>
-</html> 
+</html>
