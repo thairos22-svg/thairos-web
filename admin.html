@@ -65,6 +65,24 @@
   #estadoAlta { font-size: 13px; color: var(--grey); }
   #estadoAlta.ok { color: var(--ok); }
   #estadoAlta.bad { color: var(--bad); }
+
+  /* ---- promo de lanzamiento ---- */
+  #promo {
+    border-top: 1px solid var(--rule);
+    margin-top: 44px; padding-top: 24px; max-width: 780px;
+  }
+  #promo .aviso { color: var(--grey); font-size: 12px; margin: 0 0 18px; }
+  .promo-fila { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .promo-check { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .promo-check input { width: auto; margin: 0; }
+  #promo label.pct {
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 11px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  #promo input[type="number"] { width: 90px; margin: 0; text-align: center; }
+  #estadoPromo { font-size: 13px; color: var(--grey); }
+  #estadoPromo.ok { color: var(--ok); }
+  #estadoPromo.bad { color: var(--bad); }
 </style>
 </head>
 <body>
@@ -119,6 +137,26 @@
         <span id="estadoAlta"></span>
       </div>
     </div>
+
+    <div id="promo">
+      <h2>Promo de lanzamiento</h2>
+      <p class="aviso">
+        Prendida, la web muestra una franja arriba de todo y cada prenda con el precio
+        viejo tachado y el nuevo al lado. El mensaje de WhatsApp tambi&eacute;n avisa de la promo.
+        Los descuentos se calculan solos, no toca los precios de la tabla de arriba.
+      </p>
+      <div class="promo-fila">
+        <label class="promo-check">
+          <input id="promoActiva" type="checkbox">
+          Promo prendida
+        </label>
+        <label class="pct">Descuento %
+          <input id="promoPct" type="number" min="1" max="99" value="10">
+        </label>
+        <button id="guardarPromo">Guardar promo</button>
+        <span id="estadoPromo"></span>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -152,6 +190,7 @@
         panel.classList.remove('hidden');
         dibujar();
         dibujarAlta();
+        cargarPromo();
       })
       .catch(function () {
         document.getElementById('loginError').textContent = 'Contraseña incorrecta';
@@ -314,6 +353,58 @@
       .catch(function (e) {
         estadoAlta.textContent = e.message || 'Error de conexión.';
         estadoAlta.className = 'bad';
+      });
+  });
+
+  // ---- promo de lanzamiento ----
+  var chkPromo = document.getElementById('promoActiva');
+  var inpPct = document.getElementById('promoPct');
+  var estadoPromo = document.getElementById('estadoPromo');
+
+  function cargarPromo() {
+    fetch('/api/promo', { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        chkPromo.checked = !!p.activa;
+        inpPct.value = p.porcentaje;
+        estadoPromo.textContent = p.activa ? 'Prendida ahora' : 'Apagada ahora';
+        estadoPromo.className = p.activa ? 'ok' : '';
+      })
+      .catch(function () {
+        estadoPromo.textContent = 'No pude leer el estado de la promo.';
+        estadoPromo.className = 'bad';
+      });
+  }
+
+  document.getElementById('guardarPromo').addEventListener('click', function () {
+    var pct = Number(inpPct.value);
+    if (!(pct > 0 && pct < 100)) {
+      estadoPromo.textContent = 'El descuento tiene que ser un número entre 1 y 99.';
+      estadoPromo.className = 'bad';
+      return;
+    }
+
+    estadoPromo.textContent = 'Guardando...';
+    estadoPromo.className = '';
+
+    fetch('/api/promo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': clave },
+      body: JSON.stringify({ activa: chkPromo.checked, porcentaje: pct }),
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('No se pudo guardar.');
+        return r.json();
+      })
+      .then(function (p) {
+        estadoPromo.textContent = p.activa
+          ? 'Promo prendida al ' + p.porcentaje + '% ✓'
+          : 'Promo apagada ✓';
+        estadoPromo.className = 'ok';
+      })
+      .catch(function (e) {
+        estadoPromo.textContent = e.message || 'Error de conexión.';
+        estadoPromo.className = 'bad';
       });
   });
 })();
