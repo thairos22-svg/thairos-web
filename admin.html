@@ -17,6 +17,7 @@
     margin: 0; padding: 24px; line-height: 1.5;
   }
   h1 { font-size: 22px; margin-bottom: 4px; }
+  h2 { font-size: 17px; margin: 0 0 4px; }
   p.sub { color: var(--grey); font-size: 13px; margin-bottom: 24px; }
   #login { max-width: 320px; margin-top: 60px; }
   input, button {
@@ -43,6 +44,27 @@
   #estado.ok { color: var(--ok); }
   #estado.bad { color: var(--bad); }
   .hidden { display: none; }
+
+  /* ---- alta de una prenda nueva ---- */
+  #alta {
+    border-top: 1px solid var(--rule);
+    margin-top: 44px; padding-top: 24px; max-width: 780px;
+  }
+  #alta .aviso { color: var(--grey); font-size: 12px; margin: 0 0 18px; }
+  #alta .aviso b { color: var(--sand); }
+  .alta-campos { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 16px; }
+  .alta-campos label {
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 11px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .alta-campos input { width: 260px; margin: 0; }
+  .alta-campos input.corto { width: 130px; }
+  #nTalles { margin-bottom: 20px; }
+  #nTalles input { width: 64px; text-align: center; margin: 0; }
+  .alta-row { display: flex; align-items: center; gap: 12px; }
+  #estadoAlta { font-size: 13px; color: var(--grey); }
+  #estadoAlta.ok { color: var(--ok); }
+  #estadoAlta.bad { color: var(--bad); }
 </style>
 </head>
 <body>
@@ -73,6 +95,30 @@
       <button id="guardar">Guardar cambios</button>
       <span id="estado"></span>
     </div>
+
+    <div id="alta">
+      <h2>Agregar prenda</h2>
+      <p class="aviso">
+        El nombre tiene que ser <b>exactamente igual</b> al título que lleva la prenda en la web,
+        con las mismas mayúsculas y tildes. Si no coincide, la web no le lee el stock.
+      </p>
+      <div class="alta-campos">
+        <label>Nombre
+          <input id="nNombre" type="text" placeholder="Remera Oversize Suki" autocomplete="off">
+        </label>
+        <label>Categoría
+          <input id="nCategoria" type="text" class="corto" value="Remeras" autocomplete="off">
+        </label>
+        <label>Precio
+          <input id="nPrecio" type="number" class="corto" value="1250" min="0">
+        </label>
+      </div>
+      <div class="sizes" id="nTalles"></div>
+      <div class="alta-row">
+        <button id="agregar">Agregar prenda</button>
+        <span id="estadoAlta"></span>
+      </div>
+    </div>
   </div>
 
 <script>
@@ -85,6 +131,8 @@
   var panel = document.getElementById('panel');
   var filas = document.getElementById('filas');
   var estado = document.getElementById('estado');
+  var estadoAlta = document.getElementById('estadoAlta');
+  var nTalles = document.getElementById('nTalles');
 
   document.getElementById('entrar').addEventListener('click', entrar);
   document.getElementById('clave').addEventListener('keydown', function (e) {
@@ -103,10 +151,17 @@
         loginBox.classList.add('hidden');
         panel.classList.remove('hidden');
         dibujar();
+        dibujarAlta();
       })
       .catch(function () {
         document.getElementById('loginError').textContent = 'Contraseña incorrecta';
       });
+  }
+
+  function recargar() {
+    return fetch('/api/admin/products', { headers: { 'x-admin-key': clave } })
+      .then(function (r) { return r.json(); })
+      .then(function (data) { productos = data; dibujar(); });
   }
 
   function dibujar() {
@@ -163,6 +218,24 @@
     });
   }
 
+  function dibujarAlta() {
+    nTalles.innerHTML = '';
+    TALLES.forEach(function (talle) {
+      var wrap = document.createElement('div');
+      var lab = document.createElement('label');
+      lab.textContent = talle;
+      var inp = document.createElement('input');
+      inp.type = 'number';
+      inp.min = '0';
+      inp.value = '5';
+      inp.dataset.talle = talle;
+      wrap.appendChild(lab);
+      wrap.appendChild(document.createElement('br'));
+      wrap.appendChild(inp);
+      nTalles.appendChild(wrap);
+    });
+  }
+
   document.getElementById('guardar').addEventListener('click', function () {
     var filasDom = filas.querySelectorAll('tr');
     var cambios = [];
@@ -196,6 +269,51 @@
       .catch(function () {
         estado.textContent = 'Error de conexión.';
         estado.className = 'bad';
+      });
+  });
+
+  document.getElementById('agregar').addEventListener('click', function () {
+    var nombre = document.getElementById('nNombre').value.trim();
+    if (!nombre) {
+      estadoAlta.textContent = 'Poné el nombre de la prenda.';
+      estadoAlta.className = 'bad';
+      return;
+    }
+
+    var sizes = {};
+    nTalles.querySelectorAll('input[data-talle]').forEach(function (inp) {
+      sizes[inp.dataset.talle] = Number(inp.value) || 0;
+    });
+
+    estadoAlta.textContent = 'Agregando...';
+    estadoAlta.className = '';
+
+    fetch('/api/admin/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': clave },
+      body: JSON.stringify({
+        crear: true,
+        name: nombre,
+        category: document.getElementById('nCategoria').value.trim() || 'Remeras',
+        price: Number(document.getElementById('nPrecio').value) || 0,
+        active: true,
+        sizes: sizes,
+      }),
+    })
+      .then(function (r) {
+        if (r.status === 409) throw new Error('Ya hay una prenda con ese nombre.');
+        if (!r.ok) throw new Error('No se pudo agregar.');
+        return r.json();
+      })
+      .then(function () {
+        estadoAlta.textContent = 'Agregada ✓';
+        estadoAlta.className = 'ok';
+        document.getElementById('nNombre').value = '';
+        return recargar();
+      })
+      .catch(function (e) {
+        estadoAlta.textContent = e.message || 'Error de conexión.';
+        estadoAlta.className = 'bad';
       });
   });
 })();
