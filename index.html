@@ -543,6 +543,45 @@
     .feature { grid-template-columns: 1fr; }
   }
 
+  /* franja de promo */
+  .promo-bar {
+    background: var(--bone);
+    color: var(--ink);
+    text-align: center;
+    padding: 11px 16px;
+    font-family: var(--f-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .promo-bar b { font-weight: 700; }
+
+  /* precio viejo tachado al lado del nuevo */
+  .precio-antes {
+    text-decoration: line-through;
+    opacity: 0.45;
+    margin-right: 9px;
+    font-weight: 400;
+  }
+
+  /* Cápsula: misma estructura que la pieza firma, pero en negro.
+     Así el Polo tiene su propia sección sin repetir el panel claro. */
+  .feature.oscura {
+    background: transparent;
+    color: var(--bone);
+    padding: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: clamp(24px, 3vw, 40px);
+  }
+  .feature.oscura .feature-pics button { background: var(--ink-2); }
+  .feature.oscura .label { color: var(--grey); }
+  .feature.oscura p.desc { color: var(--grey); }
+  .feature.oscura .picker button { border-color: var(--rule); color: var(--grey); }
+  .feature.oscura .picker button:hover { border-color: var(--grey); color: var(--bone); }
+  .feature.oscura .picker button[aria-pressed="true"] { background: var(--bone); border-color: var(--bone); color: var(--ink); }
+  .feature.oscura .btn { border-color: var(--bone); color: var(--bone); }
+  .feature.oscura .btn:hover { background: var(--bone); color: var(--ink); }
+
   /* capítulos */
 
   .chapter {
@@ -874,6 +913,8 @@
   }
 </style>
 
+<div class="promo-bar" id="promoBar">Promo lanzamiento &middot; <b>10% OFF</b> &middot; Por tiempo limitado</div>
+
 <div class="nav">
   <div class="wrap">
     <a class="brand" href="#top"><img src="img/logo.png" alt="Thairos" /></a>
@@ -1045,6 +1086,16 @@
         <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
         <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Kendo.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
       </div>
+
+      <div class="card rise photo">
+        <button class="pic" type="button" data-name="Remera Oversize Thairos Metal" data-price="$ 1.250" aria-label="Ampliar foto de Remera Oversize Thairos Metal">
+          <img src="img/p-metal.jpg" alt="Remera gris oversize con el logo cromado en la espalda." loading="lazy" />
+        </button>
+        <div class="meta"><span class="label">Remeras</span><span class="price">$ 1.250</span></div>
+        <h3>Remera Oversize Thairos Metal</h3>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="ask" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20la%20Remera%20Oversize%20Thairos%20Metal.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -1081,6 +1132,27 @@
     </div>
   </section>
 
+  <section id="capsula">
+    <div class="eyebrow rise"><span class="label">C&aacute;psula 002</span></div>
+    <div class="feature oscura rise">
+      <div class="feature-pics">
+        <button class="fp-main" type="button" data-name="Polo Boxy" data-price="$ 1.250" aria-label="Ampliar el Polo Boxy">
+          <img src="img/p-polo.jpg" alt="Polo Boxy verde, con el escudo y la firma al frente." loading="lazy" />
+        </button>
+      </div>
+      <div>
+        <span class="label">Polo &middot; Producci&oacute;n corta</span>
+        <h3>Polo Boxy</h3>
+        <div class="price">$ 1.250</div>
+        <p class="desc">Remera polo de manga corta, cuello abierto y corte boxy: ancho de hombro, ca&iacute;da recta, sin quedar largo.</p>
+        <p class="desc">El escudo lleva <strong>corona y laurel</strong>, y al costado <strong>cinco estrellas</strong> &mdash; el lenguaje de las camisetas de club de otra &eacute;poca, pero sin equipo, sin torneo y sin patrocinante. La insignia sola.</p>
+        <p class="desc">Se produce por tanda y por talle. No hay reposici&oacute;n autom&aacute;tica.</p>
+        <div class="picker" role="group" aria-label="Eleg&iacute; tu talle"><button type="button" data-size="S">S</button><button type="button" data-size="M">M</button><button type="button" data-size="L">L</button><button type="button" data-size="XL">XL</button></div>
+        <a class="btn" href="https://wa.me/59891368727?text=Hola%20Thairos%2C%20quiero%20el%20Polo%20Boxy.%20Mi%20talle%20es%3A%20" target="_blank" rel="noopener">Consultar por WhatsApp &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <section id="lookbook">
     <div class="head rise">
       <h2>Lookbook</h2>
@@ -1091,7 +1163,9 @@
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb4.jpg" alt="Remera negra Thairos con estampa fotografica, caminando por una terraza." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb2.jpg" alt="Remera negra Thairos sostenida al frente, en una terraza." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb3.jpg" alt="Detalle de la estampa fotografica sobre algodon negro." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb-metal.jpg" alt="Remera gris Thairos Metal caminando por la calle, de espaldas." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-escalera.jpg" alt="Polo Boxy verde en una escalera con alfombra roja." loading="lazy" /></button>
+      <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/lb-poloesp.jpg" alt="Detalle de la espalda del Polo Boxy, con el escudo bordado." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-frente.jpg" alt="Polo Boxy verde, sentado en unos escalones de madera." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-espalda.jpg" alt="Espalda del Polo Boxy, con el escudo a la altura del cuello." loading="lazy" /></button>
       <button class="rise photo" type="button" aria-label="Ampliar foto del lookbook"><img src="img/j-perfil.jpg" alt="Polo Boxy de perfil, frente a una proyeccion del mar." loading="lazy" /></button>
@@ -1337,6 +1411,7 @@
   // El talle elegido reescribe el mensaje que se abre en WhatsApp
   function link(producto, talle) {
     var t = 'Hola Thairos, quiero ' + articulo(producto) + ' ' + producto;
+    if (window.__PROMO && window.__PROMO.activa) t += ' con la promo de lanzamiento';
     t += talle ? ' en talle ' + talle + '.' : '. Mi talle es: ';
     return 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(t);
   }
@@ -1634,6 +1709,64 @@
       });
     })
     .catch(function () { /* sin inventario conectado todavia: no hace nada */ });
+})();
+</script>
+
+<script>
+/* ===== PROMO DE LANZAMIENTO =====
+   Para apagarla: poner activa en false. Se va la franja de arriba,
+   los precios vuelven a su valor normal y el mensaje de WhatsApp
+   deja de mencionarla. No hay que tocar nada mas. */
+window.__PROMO = { activa: false, porcentaje: 10 };
+
+(function () {
+  var P = window.__PROMO;
+  var barra = document.getElementById('promoBar');
+
+  if (!P.activa) { if (barra) barra.remove(); return; }
+
+  function pesos(n) { return '$ ' + n.toLocaleString('es-UY'); }
+  function conDescuento(n) { return Math.round(n * (100 - P.porcentaje) / 100); }
+  function numero(txt) { return parseInt(String(txt).replace(/[^0-9]/g, ''), 10); }
+  function articulo(n) { return /^(hoodie|buzo|polo|jersey|campera)/i.test(n) ? 'el' : 'la'; }
+
+  function aplicar() {
+    document.querySelectorAll('.card, .feature').forEach(function (u) {
+
+      // precio: el viejo tachado y al lado el nuevo
+      u.querySelectorAll('.price').forEach(function (el) {
+        if (el.querySelector('.precio-antes')) return;   // ya tiene la promo puesta
+        var n = numero(el.textContent);
+        if (!n) return;
+        el.innerHTML = '<span class="precio-antes">' + pesos(n) + '</span>' +
+                       '<span class="precio-ahora">' + pesos(conDescuento(n)) + '</span>';
+      });
+
+      // el precio que muestra la foto ampliada
+      u.querySelectorAll('[data-price]').forEach(function (b) {
+        if (b.dataset.promoHecha === '1') return;
+        var n = numero(b.dataset.price);
+        if (n) { b.dataset.price = pesos(conDescuento(n)); b.dataset.promoHecha = '1'; }
+      });
+
+      // el mensaje de WhatsApp avisa de la promo
+      var h3 = u.querySelector('h3');
+      var cta = u.querySelector('.ask, .btn');
+      if (h3 && cta && cta.dataset.promoHecha !== '1') {
+        var nombre = h3.textContent.trim();
+        var t = 'Hola Thairos, quiero ' + articulo(nombre) + ' ' + nombre +
+                ' con la promo de lanzamiento. Mi talle es: ';
+        cta.href = 'https://wa.me/59891368727?text=' + encodeURIComponent(t);
+        cta.dataset.promoHecha = '1';
+      }
+    });
+  }
+
+  aplicar();
+  // el inventario reescribe los precios cuando responde: los vuelvo a marcar
+  setTimeout(aplicar, 800);
+  setTimeout(aplicar, 2500);
+  setTimeout(aplicar, 6000);
 })();
 </script>
 
