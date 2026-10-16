@@ -543,8 +543,10 @@
     .feature { grid-template-columns: 1fr; }
   }
 
-  /* franja de promo */
+  /* Franja de promo. Arranca escondida: el script la muestra solo si la
+     promo esta prendida en el panel, asi no se asoma un instante al cargar. */
   .promo-bar {
+    display: none;
     background: var(--bone);
     color: var(--ink);
     text-align: center;
@@ -1719,16 +1721,33 @@
 
 <script>
 /* ===== PROMO DE LANZAMIENTO =====
-   Para apagarla: poner activa en false. Se va la franja de arriba,
-   los precios vuelven a su valor normal y el mensaje de WhatsApp
-   deja de mencionarla. No hay que tocar nada mas. */
+   El interruptor ya no esta aca: vive en la base, y se prende y se apaga
+   desde el panel (thairos.uy/admin.html). La web le pregunta al entrar.
+   Mientras no haya respuesta, la franja esta escondida y los precios
+   son los normales, asi nadie llega a ver una promo que esta apagada. */
 window.__PROMO = { activa: false, porcentaje: 10 };
 
 (function () {
-  var P = window.__PROMO;
   var barra = document.getElementById('promoBar');
+  if (barra) barra.style.display = 'none';
 
-  if (!P.activa) { if (barra) barra.remove(); return; }
+  fetch('/api/promo', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (p) {
+      if (!p || !p.activa) return;
+      window.__PROMO = { activa: true, porcentaje: p.porcentaje };
+      arrancar(p.porcentaje);
+    })
+    .catch(function () { /* si no contesta, se queda sin promo */ });
+
+  function arrancar(porcentaje) {
+  var P = { porcentaje: porcentaje };
+
+  if (barra) {
+    barra.innerHTML = 'Promo lanzamiento &middot; <b>' + porcentaje +
+                      '% OFF</b> &middot; Por tiempo limitado';
+    barra.style.display = 'block';
+  }
 
   function pesos(n) { return '$ ' + n.toLocaleString('es-UY'); }
   function conDescuento(n) { return Math.round(n * (100 - P.porcentaje) / 100); }
@@ -1772,6 +1791,7 @@ window.__PROMO = { activa: false, porcentaje: 10 };
   setTimeout(aplicar, 800);
   setTimeout(aplicar, 2500);
   setTimeout(aplicar, 6000);
+  }
 })();
 </script>
 
